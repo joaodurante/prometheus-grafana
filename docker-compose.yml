@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  nodejs:
+    build:
+      context: ./node_server
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./node_server:/usr/src/app
+    networks:
+      - monitoring
+    command: ["npm", "start"]
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge
