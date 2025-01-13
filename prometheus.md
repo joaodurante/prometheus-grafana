@@ -1,5 +1,59 @@
 # Phometeus
 
+## Metric Types
+### Counter
+**Description:**  
+A counter is a cumulative metric that only increases over time. It represents a quantity that can only go up, like the number of requests or errors.  
+**Example:**  
+`http_requests_total (Total number of HTTP requests received by a server).`  
+**Use case:**  
+Tracking events that can only increase, such as the number of requests or processed jobs.  
+**Characteristics:**  
+Can only increase (resetting is allowed, e.g., when the service restarts).  
+Useful for calculating rates (e.g., requests per second).  
+
+### Gauge
+**Description:**  
+A gauge is a metric that can go up or down, representing values that vary over time. It is used for things like current temperature, memory usage, or queue lengths.  
+**Example:**  
+`memory_usage_bytes (Amount of memory in use).`  
+**Use case:**  
+Measuring values that can go up or down, such as system resource utilization (CPU, memory) or number of items in a queue.  
+**Characteristics:**  
+Can both increase and decrease.
+Represents current values (e.g., current temperature, current memory usage).  
+
+### Histogram
+**Description:**  
+A histogram measures the distribution of values, tracking the frequency of occurrences in configurable buckets. It is often used for measuring response times or request durations.  
+**Example:**  
+`http_request_duration_seconds (Histogram of HTTP request durations).`  
+**Use case:**  
+Measuring distributions, such as request latency, processing time, or size of events.  
+**Characteristics:**  
+Defines configurable "buckets" to categorize values (e.g., request durations).  
+Includes a count of total observations, sum of all observed values, and bucket counts.  
+Useful for calculating percentiles and summary statistics.  
+
+## Summary
+**Description:**  
+Similar to histograms, but with a focus on quantiles (percentiles). A summary provides quantiles over time, and it is designed for scenarios where high-precision quantiles are required.  
+**Example:**  
+`http_request_duration_seconds (Summary of HTTP request durations).`  
+**Use case:**  
+Measuring precise quantiles (e.g., 99th percentile of request latency).  
+**Characteristics:**  
+Tracks individual observations and calculates quantiles (e.g., 50th, 95th, and 99th percentiles).  
+Summaries are generally better suited for low cardinality metrics (fewer label combinations).  
+
+| Metric Type  | Description                                 | Use Case                                        | Example                          |
+|--------------|---------------------------------------------|-------------------------------------------------|----------------------------------|
+| **Counter**  | Cumulative value that only increases        | Tracking total counts of events                 | `http_requests_total`            |
+| **Gauge**    | Can go up or down                           | Measuring values like temperature, memory, etc. | `memory_usage_bytes`             |
+| **Histogram**| Distribution of values in buckets           | Measuring distributions like response times     | `http_request_duration_seconds`  |
+| **Summary**  | Focuses on quantiles and precise percentiles| High-precision percentile calculations          | `http_request_duration_seconds`  |
+
+
 ## PromQL 
 PromQL is a powerful query language that helps you extract, aggregate, and manipulate time series data from Prometheus. The most commonly used commands involve selecting metrics with label filters, applying aggregation functions, performing mathematical operations, and handling time-based operations and alerts.
 
