@@ -1,3 +1,3 @@
-# Prometheus and Graphana
-Simple repo for Prometheus and Graphana studies
+# Prometheus and Grafana
+Simple repo for Prometheus and Grafana studies
 
