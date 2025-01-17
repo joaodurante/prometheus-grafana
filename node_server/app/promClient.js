@@ -11,11 +11,11 @@ class PrometheusClient {
         });
 
         // Create a gauge metric to simulate the number of active requetts
-        this.activeRequests = new client.Gauge({
+        this.requestsActive = new client.Gauge({
             name: 'requests_active',
             help: 'Number of active requests being processed by the server',
         });
-        this.activeRequests.set(Math.floor(Math.random() * 100));
+        this.requestsActive.set(Math.floor(Math.random() * 100));
         
         // Create a histogram metric to track request durations for /get
         this.requestDurationHistogram = new client.Histogram({

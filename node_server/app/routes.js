@@ -10,20 +10,20 @@ router.get('/', (req, res) => {
     // Increment the GET request counter
     promClient.requestCounter.inc();
 
-    promClient.activeRequests.inc();
+    // Increment active requests gauge
+    promClient.requestsActive.inc();
 
     // Simulate some processing and random response times
     setTimeout(() => {
         res.send('Hello, World!');
         histogramEnd();
         summaryEnd();
-        promClient.activeRequests.dec();
+        promClient.requestsActive.dec();
     }, Math.random() * 1000);
 });
 
 // Define the /metrics route where Prometheus will scrape the metrics
 router.get('/metrics', async (req, res) => {
-    // Set a random number to simulate active requests
     res.set('Content-Type', promClient.register.contentType);
     res.end(await promClient.register.metrics());
 });
