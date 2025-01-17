@@ -8,7 +8,8 @@ const sendMetrics = async () => {
     const summaryEnd = promClient.requestDurationSummary.startTimer();
 
     // Increment the GET request counter
-    promClient.requestCounter.inc();
+    const randomStatusCode = Math.random() > 0.7 ? 200 : 500;
+    promClient.requestCounter.labels(randomStatusCode.toString()).inc();
 
     // Increment active requests gauge
     promClient.requestsActive.inc();
@@ -24,7 +25,7 @@ const sendMetrics = async () => {
 // Timer to simulate user requests
 setInterval(async () => {
     await sendMetrics();
-}, 100);
+}, 1000);
 
 // GET request
 router.get('/', async (req, res) => {

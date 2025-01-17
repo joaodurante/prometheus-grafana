@@ -8,6 +8,7 @@ class PrometheusClient {
         this.requestCounter = new client.Counter({
             name: 'requests_total',
             help: 'Total number of GET requests to /get',
+            labelNames: ['status_code'],
         });
 
         // Create a gauge metric to simulate the number of active requetts
